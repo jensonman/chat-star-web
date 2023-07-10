@@ -5,7 +5,7 @@
       :style="{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0, top: 0, bottom: 0 }" :width="sidebarWidth"
     >
       <div class="logo" />
-      <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
+      <!-- <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
         <a-menu-item key="1">
           <user-outlined />
           <span class="nav-text">nav 1</span>
@@ -34,8 +34,8 @@
           <team-outlined />
           <span class="nav-text">nav 7</span>
         </a-menu-item>
-      </a-menu>
-      <UserInfo></UserInfo>
+      </a-menu> -->
+      <UserMenu></UserMenu>
 
     </a-layout-sider>
     <div class="divider" ref="divider" :style="{'margin-left':sidebarWidth + 'px'}" @mousedown="startDrag">||</div>
@@ -147,27 +147,27 @@
   </a-layout>
 </template>
 <script>
-import { UserOutlined, VideoCameraOutlined, UploadOutlined, BarChartOutlined, CloudOutlined, AppstoreOutlined, TeamOutlined } from '@ant-design/icons-vue';
+// import { UserOutlined, VideoCameraOutlined, UploadOutlined, BarChartOutlined, CloudOutlined, AppstoreOutlined, TeamOutlined } from '@ant-design/icons-vue';
 import { defineComponent, ref, onMounted  } from 'vue';
-import UserInfo from '@/views/userInfo/userInfo.vue'
+import UserMenu from '@/views/userMenu/userMenu'
 import api from '../api/api'
 
 // import { debounce } from 'lodash';
 export default defineComponent({
   components: {
-    UserOutlined,
-    VideoCameraOutlined,
-    UploadOutlined,
-    BarChartOutlined,
-    CloudOutlined,
-    AppstoreOutlined,
-    TeamOutlined,
+    // UserOutlined,
+    // VideoCameraOutlined,
+    // UploadOutlined,
+    // BarChartOutlined,
+    // CloudOutlined,
+    // AppstoreOutlined,
+    // TeamOutlined,
     // ShopOutlined,
-    UserInfo
+    UserMenu
   },
   setup() {
     const themeOption = ref('light')
-    const sidebarWidth = ref(200); // 初始左侧边栏宽度
+    const sidebarWidth = ref(252); // 初始左侧边栏宽度
     const startDrag = () => {
       document.addEventListener('mousemove', handleDrag);
       document.addEventListener('mouseup', stopDrag);
@@ -213,9 +213,9 @@ export default defineComponent({
 }
 
 .ant-layout .side-theme {
-  background: rgba(102,205,170) ;
+  background:#202123;
   .ant-menu{
-    background: rgba(102,205,170) ;
+    background:#202123;
     font-weight: 600;
   }
 }
