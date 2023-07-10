@@ -6,6 +6,12 @@ const apiManagement = {
     },
     hasLogined(params) {
       return apiClient.post('/index', params);
+    },
+    register(params) {
+      return apiClient.post('/auth/register', params);
+    },
+    getVerificationCode(params) {
+      return apiClient.post('/auth/verification-code', params);
     }
   
 };

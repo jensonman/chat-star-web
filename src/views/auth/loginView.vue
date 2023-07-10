@@ -78,7 +78,7 @@ export default {
           password: password.value,
         })
         resData.success = res.data.success
-        resData.message = res.data.message || ''
+        resData.message = res.data.data.message || ''
         localStorage.setItem('access_token', 'Bearer '+ res.data.access_token)
         if(resData.success){
           router.push('/')
@@ -95,6 +95,7 @@ export default {
 
     const register = () => {
       // 处理注册的逻辑，例如打开注册页面或弹出注册对话框
+      router.push('/register')
     };
 
     return {

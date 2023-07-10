@@ -1,6 +1,7 @@
 <template>
-  <a-layout has-sider>
+  <a-layout has-sider >
     <a-layout-sider
+      class="side-theme"
       :style="{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0, top: 0, bottom: 0 }" :width="sidebarWidth"
     >
       <div class="logo" />
@@ -33,11 +34,9 @@
           <team-outlined />
           <span class="nav-text">nav 7</span>
         </a-menu-item>
-        <a-menu-item key="8">
-          <shop-outlined />
-          <span class="nav-text">nav 8</span>
-        </a-menu-item>
       </a-menu>
+      <UserInfo></UserInfo>
+
     </a-layout-sider>
     <div class="divider" ref="divider" :style="{'margin-left':sidebarWidth + 'px'}" @mousedown="startDrag">||</div>
     <a-layout :style="{'margin-left': sidebarWidth + 10 + 'px'}">
@@ -148,8 +147,9 @@
   </a-layout>
 </template>
 <script>
-import { UserOutlined, VideoCameraOutlined, UploadOutlined, BarChartOutlined, CloudOutlined, AppstoreOutlined, TeamOutlined, ShopOutlined } from '@ant-design/icons-vue';
+import { UserOutlined, VideoCameraOutlined, UploadOutlined, BarChartOutlined, CloudOutlined, AppstoreOutlined, TeamOutlined } from '@ant-design/icons-vue';
 import { defineComponent, ref, onMounted  } from 'vue';
+import UserInfo from '@/views/userInfo/userInfo.vue'
 import api from '../api/api'
 
 // import { debounce } from 'lodash';
@@ -162,9 +162,11 @@ export default defineComponent({
     CloudOutlined,
     AppstoreOutlined,
     TeamOutlined,
-    ShopOutlined,
+    // ShopOutlined,
+    UserInfo
   },
   setup() {
+    const themeOption = ref('light')
     const sidebarWidth = ref(200); // 初始左侧边栏宽度
     const startDrag = () => {
       document.addEventListener('mousemove', handleDrag);
@@ -195,11 +197,12 @@ export default defineComponent({
       stopDrag,
       sidebarWidth,
       selectedKeys: ref(['4']),
+      themeOption,
     };
   }
 });
 </script>
-<style>
+<style lang="less" scoped>
 #components-layout-demo-fixed-sider .logo {
   height: 32px;
   background: rgba(255, 255, 255, 0.2);
@@ -209,8 +212,12 @@ export default defineComponent({
   background: #fff;
 }
 
-[data-theme='dark'] .site-layout .site-layout-background {
-  background: #141414;
+.ant-layout .side-theme {
+  background: rgba(102,205,170) ;
+  .ant-menu{
+    background: rgba(102,205,170) ;
+    font-weight: 600;
+  }
 }
 
 .divider {
