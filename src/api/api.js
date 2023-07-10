@@ -4,7 +4,9 @@ const apiManagement = {
     login(params) {
       return apiClient.post('/auth/login', params);
     },
-    test: "test"
+    hasLogined(params) {
+      return apiClient.post('/index', params);
+    }
   
 };
   

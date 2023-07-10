@@ -150,6 +150,8 @@
 <script>
 import { UserOutlined, VideoCameraOutlined, UploadOutlined, BarChartOutlined, CloudOutlined, AppstoreOutlined, TeamOutlined, ShopOutlined } from '@ant-design/icons-vue';
 import { defineComponent, ref, onMounted  } from 'vue';
+import api from '../api/api'
+
 // import { debounce } from 'lodash';
 export default defineComponent({
   components: {
@@ -181,6 +183,8 @@ export default defineComponent({
       document.removeEventListener('mouseup', stopDrag);
     };
     onMounted(() => {
+      const access_token = localStorage.getItem('access_token')
+      api.apiManagement.hasLogined({access_token})
       // 监听窗口大小变化，并调用防抖或节流的处理函数
       // window.addEventListener('resize', debouncedUpdateContentWidth);
       // window.addEventListener('resize', throttledUpdateContentWidth);

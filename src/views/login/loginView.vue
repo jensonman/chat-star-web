@@ -42,6 +42,7 @@
 import { ref, reactive } from 'vue';
 import { Form, Input, Button, Card, Row, Col } from 'ant-design-vue';
 import { SmileOutlined } from '@ant-design/icons-vue';
+import { useRouter } from 'vue-router';
 import api from '../../api/api'
 export default {
   components: {
@@ -55,6 +56,7 @@ export default {
     SmileOutlined
   },
   setup() {
+    const router = useRouter();
     const form = Form.useForm();
     const email = ref('');
     const password = ref('');
@@ -71,12 +73,16 @@ export default {
       }
 
       try {
-        let {success, data} = await api.apiManagement.login({
+        let res = await api.apiManagement.login({
           email: email.value,
-          password: password.value
+          password: password.value,
         })
-        resData.success = success
-        resData.message = data.message || ''
+        resData.success = res.data.success
+        resData.message = res.data.message || ''
+        localStorage.setItem('access_token', 'Bearer '+ res.data.access_token)
+        if(resData.success){
+          router.push('/')
+        }
         // Object.assign(resData, res)
       } catch (error) {
         console.error('Login failed', error);
