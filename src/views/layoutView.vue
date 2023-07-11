@@ -5,44 +5,13 @@
       :style="{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0, top: 0, bottom: 0 }" :width="sidebarWidth"
     >
       <div class="logo" />
-      <!-- <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
-        <a-menu-item key="1">
-          <user-outlined />
-          <span class="nav-text">nav 1</span>
-        </a-menu-item>
-        <a-menu-item key="2">
-          <video-camera-outlined />
-          <span class="nav-text">nav 2</span>
-        </a-menu-item>
-        <a-menu-item key="3">
-          <upload-outlined />
-          <span class="nav-text">nav 3</span>
-        </a-menu-item>
-        <a-menu-item key="4">
-          <bar-chart-outlined />
-          <span class="nav-text">nav 4</span>
-        </a-menu-item>
-        <a-menu-item key="5">
-          <cloud-outlined />
-          <span class="nav-text">nav 5</span>
-        </a-menu-item>
-        <a-menu-item key="6">
-          <appstore-outlined />
-          <span class="nav-text">nav 6</span>
-        </a-menu-item>
-        <a-menu-item key="7">
-          <team-outlined />
-          <span class="nav-text">nav 7</span>
-        </a-menu-item>
-      </a-menu> -->
       <UserMenu></UserMenu>
 
     </a-layout-sider>
     <div class="divider" ref="divider" :style="{'margin-left':sidebarWidth + 'px'}" @mousedown="startDrag">||</div>
-    <a-layout :style="{'margin-left': sidebarWidth + 10 + 'px'}">
-      <!-- <a-layout-header :style="{ background: '#fff', padding: 0 }" /> -->
-      <a-layout-content :style="{ margin: '24px 16px 0', overflow: 'initial' }">
-        <div :style="{ padding: '24px', background: '#fff', textAlign: 'center' }">
+    <a-layout class="layout-container" :style="{'margin-left': sidebarWidth + 10 + 'px'}">
+      <a-layout-content class="layout-container-content" :style="{ margin: '24px 16px 0', overflow: 'initial' }">
+        <div>
           ...
           <br />
           Really
@@ -140,9 +109,20 @@
           content
         </div>
       </a-layout-content>
-      <a-layout-footer :style="{ textAlign: 'center' }">
-        <!-- Ant Design ©2018 Created by Ant UED -->
-      </a-layout-footer>
+      <div class="layout-container-footer">
+        <a-input-search
+          v-model:value="value"
+          placeholder="input search text"
+          size="large"
+          @search="onSearch"
+        >
+          <template #enterButton>
+            <a-button>Custom</a-button>
+          </template>
+        </a-input-search>
+
+        <a-button></a-button>
+      </div>
     </a-layout>
   </a-layout>
 </template>
@@ -167,7 +147,7 @@ export default defineComponent({
   },
   setup() {
     const themeOption = ref('light')
-    const sidebarWidth = ref(252); // 初始左侧边栏宽度
+    const sidebarWidth = ref(260); // 初始左侧边栏宽度
     const startDrag = () => {
       document.addEventListener('mousemove', handleDrag);
       document.addEventListener('mouseup', stopDrag);
@@ -203,26 +183,55 @@ export default defineComponent({
 });
 </script>
 <style lang="less" scoped>
+@tw-bg-menu: #202123;
+@tw-bg-opacity: 1;
+#app > section {
+  background-color:@tw-bg-menu;
+}
 #components-layout-demo-fixed-sider .logo {
   height: 32px;
   background: rgba(255, 255, 255, 0.2);
   margin: 16px;
 }
 .site-layout .site-layout-background {
-  background: #fff;
+  background-color: rgba(68,70,84,var(@tw-bg-opacity));
 }
 
 .ant-layout .side-theme {
-  background:#202123;
+  background:@tw-bg-menu;
+  min-width: 260px;
   .ant-menu{
-    background:#202123;
+    background:@tw-bg-menu;
     font-weight: 600;
+  }
+}
+
+
+.layout-container{
+  background-color: rgba(68,70,84,@tw-bg-opacity);
+  .layout-container-content {
+    div {
+      background-color: rgba(68,70,84,@tw-bg-opacity);
+      // padding: 24px;
+      text-align: center;
+    }
+  }
+  .layout-container-footer {
+    background-image: linear-gradient(180deg,rgba(53,55,64,0),#353740 58.85%);
+    color:aliceblue;
+    height: 192px;
+    position: sticky;
+    bottom: 0px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    // align-items: center;
   }
 }
 
 .divider {
   width: 10px;
-  background-color: rgb(196, 193, 193);
+  background-color: #5f6366;
   cursor: ew-resize;
   z-index: 1;
   display: flex;

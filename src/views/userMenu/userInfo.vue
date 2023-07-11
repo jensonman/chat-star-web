@@ -1,20 +1,35 @@
 <template>
-    <div class="side-menu-user" @click="handleClick">
-        <div class="side-menu-user-info" :class="{ 'side-menu-user-selected': isSelected }">用户信息</div>
+    <div class="side-menu-user">
+        <a-popover :getPopupContainer="getPopupContainer" class="side-menu-user-info" v-model:visible="visible" title="Title" trigger="click">
+            <template #content>
+                <a @click="logout">退出登录</a>
+            </template>
+            <a-button class="side-menu-user-button" type="primary">Click me</a-button>
+        </a-popover>
     </div>
+
+
+
 </template>
 
 <script>
-import { ref } from 'vue'
+import {  } from 'vue'
+import {useRouter} from 'vue-router'
 export default {
     setup() {
-        const isSelected = ref(false)
-        const handleClick = () => {
-            isSelected.value = !isSelected.value
+        const router = useRouter()
+        const getPopupContainer = (trigger) => {
+            // 返回当前标签的父元素作为 Popover 的挂载容器
+            return trigger.parentNode;
+        }
+        const logout = () => {
+            // 删除token
+            localStorage.removeItem('access_token')
+            router.push('/login')
         }
         return {
-            isSelected,
-            handleClick
+            getPopupContainer,
+            logout
         }
     },
 }
@@ -33,19 +48,34 @@ export default {
 
     .side-menu-user-info {
         height: 100%;
-        display: flex;
+        width: 100%;
+        // display: flex;
         justify-content: center;
         align-items: center;
-        border-top: 1px solid hsla(0, 0%, 100%, .2);
+        color: aliceblue;
+        background-color: #202123;
 
     }
 
+    .side-menu-user-button {
+        width: 100%;
+        height: 100%;
+        background-color: #202123;
+        border: none;
+        border-top: 1px solid hsla(0, 0%, 100%, .2);
+
+    }
     .side-menu-user-selected {
         height: 100%;
         width: 100%;
         background-color: rgba(52, 53, 65, 1);
         border-radius: 5px;
 
+    }
+
+    ::v-deep .ant-popover {
+        width: 100%;
+        padding: 0 8px;
     }
 }
 
@@ -54,4 +84,5 @@ export default {
     background-color: #363636;
     border-radius: 5px;
 }
+
 </style>
