@@ -15,7 +15,13 @@ export default {
 </script>
 
 <style>
+body {
+  padding: 0;
+  margin: 0;
+  background-color: rgba(68,70,84,1);
+}
 #app {
+
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

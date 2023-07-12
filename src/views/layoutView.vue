@@ -8,106 +8,11 @@
       <UserMenu></UserMenu>
 
     </a-layout-sider>
-    <div class="divider" ref="divider" :style="{'margin-left':sidebarWidth + 'px'}" @mousedown="startDrag">||</div>
-    <a-layout class="layout-container" :style="{'margin-left': sidebarWidth + 10 + 'px'}">
-      <a-layout-content class="layout-container-content" :style="{ margin: '24px 16px 0', overflow: 'initial' }">
-        <div>
-          ...
-          <br />
-          Really
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          long
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          ...
-          <br />
-          content
-        </div>
+    <!-- <div class="divider" ref="divider" :style="{'padding-left':sidebarWidth + 'px'}" @mousedown="startDrag">||</div> -->
+    <a-layout class="layout-container" :style="{'padding-left': sidebarWidth + 'px'}">
+      <a-layout-content class="layout-container-content" :style="{overflow: 'initial' }">
+        <ChatView></ChatView>
+
       </a-layout-content>
       <div class="layout-container-footer">
         <a-input-search
@@ -120,8 +25,6 @@
             <a-button>Custom</a-button>
           </template>
         </a-input-search>
-
-        <a-button></a-button>
       </div>
     </a-layout>
   </a-layout>
@@ -129,7 +32,8 @@
 <script>
 // import { UserOutlined, VideoCameraOutlined, UploadOutlined, BarChartOutlined, CloudOutlined, AppstoreOutlined, TeamOutlined } from '@ant-design/icons-vue';
 import { defineComponent, ref, onMounted  } from 'vue';
-import UserMenu from '@/views/userMenu/userMenu'
+import UserMenu from '@/views/userMenu/userMenu';
+import ChatView from '@/views/chatView/chatView'
 import api from '../api/api'
 
 // import { debounce } from 'lodash';
@@ -143,7 +47,8 @@ export default defineComponent({
     // AppstoreOutlined,
     // TeamOutlined,
     // ShopOutlined,
-    UserMenu
+    UserMenu,
+    ChatView
   },
   setup() {
     const themeOption = ref('light')
@@ -200,6 +105,7 @@ export default defineComponent({
 .ant-layout .side-theme {
   background:@tw-bg-menu;
   min-width: 260px;
+  z-index: 999;
   .ant-menu{
     background:@tw-bg-menu;
     font-weight: 600;
@@ -208,8 +114,12 @@ export default defineComponent({
 
 
 .layout-container{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   background-color: rgba(68,70,84,@tw-bg-opacity);
   .layout-container-content {
+    flex: 1;
     div {
       background-color: rgba(68,70,84,@tw-bg-opacity);
       // padding: 24px;
@@ -217,15 +127,36 @@ export default defineComponent({
     }
   }
   .layout-container-footer {
+    flex-shrink: 0;
     background-image: linear-gradient(180deg,rgba(53,55,64,0),#353740 58.85%);
     color:aliceblue;
     height: 192px;
-    position: sticky;
-    bottom: 0px;
     width: 100%;
     display: flex;
     justify-content: center;
     // align-items: center;
+
+    ::v-deep .ant-input-group-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .ant-input-group {
+      max-width:768px;
+      width: 90%;
+      input {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+      }
+      .ant-input-group-addon {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        button {
+          border-top-right-radius: 10px;
+          border-bottom-right-radius: 10px;
+        }
+      }
+    }
+    }
   }
 }
 
