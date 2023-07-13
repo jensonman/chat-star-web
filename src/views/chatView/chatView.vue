@@ -1,6 +1,15 @@
 <template>
     <div class="chat-container">
       <ChatUnit></ChatUnit>
+      <ChatUnit></ChatUnit>
+      <ChatUnit></ChatUnit>
+      <ChatUnit></ChatUnit>
+      <ChatUnit></ChatUnit>
+      <ChatUnit></ChatUnit>
+      <ChatUnit></ChatUnit>
+      <ChatUnit></ChatUnit>
+      <ChatUnit></ChatUnit>
+      <ChatUnit></ChatUnit>
     </div>
   </template>
   

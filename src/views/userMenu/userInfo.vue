@@ -74,7 +74,7 @@ export default {
     }
 
     ::v-deep .ant-popover {
-        width: 100%;
+        width: 99%;
         padding: 0 8px;
     }
 }

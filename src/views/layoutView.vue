@@ -8,45 +8,39 @@
       <UserMenu></UserMenu>
 
     </a-layout-sider>
-    <!-- <div class="divider" ref="divider" :style="{'padding-left':sidebarWidth + 'px'}" @mousedown="startDrag">||</div> -->
     <a-layout class="layout-container" :style="{'padding-left': sidebarWidth + 'px'}">
       <a-layout-content class="layout-container-content" :style="{overflow: 'initial' }">
         <ChatView></ChatView>
-
       </a-layout-content>
       <div class="layout-container-footer">
-        <a-input-search
+        <a-input
           v-model:value="value"
-          placeholder="input search text"
+          placeholder="Send a message"
           size="large"
           @search="onSearch"
+          class="layout-container-send"
         >
-          <template #enterButton>
-            <a-button>Custom</a-button>
+          <template #addonAfter>
+            <a-tooltip>
+              <template #title>send message</template>
+              <SendOutlined />
+            </a-tooltip>
           </template>
-        </a-input-search>
+        </a-input>
       </div>
     </a-layout>
   </a-layout>
 </template>
 <script>
-// import { UserOutlined, VideoCameraOutlined, UploadOutlined, BarChartOutlined, CloudOutlined, AppstoreOutlined, TeamOutlined } from '@ant-design/icons-vue';
-import { defineComponent, ref, onMounted  } from 'vue';
+import { SendOutlined } from '@ant-design/icons-vue';
+import { defineComponent, ref, onMounted } from 'vue';
 import UserMenu from '@/views/userMenu/userMenu';
 import ChatView from '@/views/chatView/chatView'
 import api from '../api/api'
 
-// import { debounce } from 'lodash';
 export default defineComponent({
   components: {
-    // UserOutlined,
-    // VideoCameraOutlined,
-    // UploadOutlined,
-    // BarChartOutlined,
-    // CloudOutlined,
-    // AppstoreOutlined,
-    // TeamOutlined,
-    // ShopOutlined,
+    SendOutlined,
     UserMenu,
     ChatView
   },
@@ -134,6 +128,8 @@ export default defineComponent({
     width: 100%;
     display: flex;
     justify-content: center;
+    position: sticky;
+    bottom: 0;
     // align-items: center;
 
     ::v-deep .ant-input-group-wrapper {
@@ -144,10 +140,30 @@ export default defineComponent({
       max-width:768px;
       width: 90%;
       input {
+        --tw-bg-opacity: 1;
+        --tw-text-opacity: 1;
+        background-color: rgba(64,65,79,var(--tw-bg-opacity));
+        border-color: rgba(32,33,35,.5);
+        color: rgba(255,255,255,var(--tw-text-opacity));
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
+        height: 60px;
+        border-right: 0px;
+      }
+      input:focus {
+        outline: none;
+        border-color: rgba(32,33,35,.5);
+        box-shadow: none;
+      }
+      .layout-container-send{
+       
       }
       .ant-input-group-addon {
+        --tw-bg-opacity: 1;
+        --tw-text-opacity: 1;
+        background-color: rgba(64,65,79,var(--tw-bg-opacity));
+        border-color: rgba(32,33,35,.5);
+        color: rgba(255,255,255,var(--tw-text-opacity));
         border-top-right-radius: 10px;
         border-bottom-right-radius: 10px;
         button {
