@@ -1,8 +1,9 @@
 import axios from 'axios';
-
+import config from '@/config/index'
+console.log("baseURL: ", config)
 // 创建一个 axios 实例
 const apiClient = axios.create({
-  baseURL: 'http://localhost:3000', // 后端接口的基础 URL
+  baseURL: config.baseURL// 后端接口的基础 URL
   // timeout: 5000, // 请求超时时间
 });
 

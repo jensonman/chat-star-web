@@ -23,7 +23,11 @@
           <template #addonAfter>
             <a-tooltip>
               <template #title>send message</template>
-              <SendOutlined />
+              <SendOutlined style="margin-right: 20px;"/>
+            </a-tooltip>
+            <a-tooltip>
+              <template #title>talk to me</template>
+              <audio-filled style="margin-right: 10px;" />
             </a-tooltip>
           </template>
         </a-input>
@@ -32,7 +36,7 @@
   </a-layout>
 </template>
 <script>
-import { SendOutlined } from '@ant-design/icons-vue';
+import { SendOutlined, AudioFilled } from '@ant-design/icons-vue';
 import { defineComponent, ref, onMounted } from 'vue';
 import UserMenu from '@/views/userMenu/userMenu';
 import ChatView from '@/views/chatView/chatView'
@@ -42,7 +46,8 @@ export default defineComponent({
   components: {
     SendOutlined,
     UserMenu,
-    ChatView
+    ChatView,
+    AudioFilled
   },
   setup() {
     const themeOption = ref('light')

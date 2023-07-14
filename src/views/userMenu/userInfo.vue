@@ -4,7 +4,11 @@
             <template #content>
                 <a @click="logout">退出登录</a>
             </template>
-            <a-button class="side-menu-user-button" type="primary">Click me</a-button>
+            <a-button class="side-menu-user-button" type="primary">
+                <user-outlined />
+                <span>your name</span>
+                <span style="right:0px;">...</span>
+            </a-button>
         </a-popover>
     </div>
 
@@ -13,9 +17,13 @@
 </template>
 
 <script>
-import {  } from 'vue'
 import {useRouter} from 'vue-router'
+import { UserOutlined } from '@ant-design/icons-vue';
+
 export default {
+    components:{
+        UserOutlined
+    },
     setup() {
         const router = useRouter()
         const getPopupContainer = (trigger) => {
