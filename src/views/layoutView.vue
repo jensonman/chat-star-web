@@ -14,7 +14,7 @@
       </a-layout-content>
       <div class="layout-container-footer">
         <a-input
-          v-model:value="value"
+          v-model:value="promptMessage"
           placeholder="Send a message"
           size="large"
           @search="onSearch"
@@ -23,7 +23,7 @@
           <template #addonAfter>
             <a-tooltip>
               <template #title>send message</template>
-              <SendOutlined style="margin-right: 20px;"/>
+              <SendOutlined style="margin-right: 20px;" @click="sendPrompt(promptMessage)"/>
             </a-tooltip>
             <a-tooltip>
               <template #title>talk to me</template>
@@ -50,6 +50,7 @@ export default defineComponent({
     AudioFilled
   },
   setup() {
+    const promptMessage = ref("")
     const themeOption = ref('light')
     const sidebarWidth = ref(260); // 初始左侧边栏宽度
     const startDrag = () => {
@@ -75,13 +76,41 @@ export default defineComponent({
       // window.addEventListener('resize', debouncedUpdateContentWidth);
       // window.addEventListener('resize', throttledUpdateContentWidth);
     });
+    const sendPrompt = (promptMessage) => {
+      api.apiManagement.getGenerateText(promptMessage)
+      const eventSource = new EventSource('/openai/stream');
+
+      eventSource.addEventListener('message', (event) => {
+        const message = event.data;
+        if (message === '[DONE]') {
+          // Stream finished
+          eventSource.close();
+          return;
+        }
+
+        try {
+          const parsed = JSON.parse(message);
+          console.log(parsed.choices[0].text);
+        } catch (error) {
+          console.error('Could not parse stream message:', message, error);
+        }
+      });
+
+      eventSource.addEventListener('error', (errorEvent) => {
+        console.error('An error occurred:', errorEvent);
+      });
+
+
+    }
 
     return {
       startDrag,
       stopDrag,
+      sendPrompt,
       sidebarWidth,
       selectedKeys: ref(['4']),
       themeOption,
+      promptMessage
     };
   }
 });

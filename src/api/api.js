@@ -12,6 +12,9 @@ const apiManagement = {
     },
     getVerificationCode(params) {
       return apiClient.post('/auth/verification-code', params);
+    },
+    getGenerateText(params) {
+      return apiClient.post('/openai/generate', params);
     }
   
 };
